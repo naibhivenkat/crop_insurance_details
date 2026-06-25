@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "952048332441",
+    "project_id": "crop-survey-sringeri-koppa",
+    "storage_bucket": "crop-survey-sringeri-koppa.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:952048332441:android:3a8bd227ba31f4f8979208",
+        "android_client_info": {
+          "package_name": "com.example.crop_survey"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsl0U2spA4hNGCNH4q4V76VZobw3qWuoE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
