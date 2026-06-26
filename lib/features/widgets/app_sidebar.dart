@@ -1,8 +1,8 @@
-
 import 'package:flutter/material.dart';
 
 enum AppMenu {
   dashboard,
+  allApplications,
   newApplication,
   searchApplication,
   updateStatus,
@@ -36,43 +36,37 @@ class AppSidebar extends StatelessWidget {
             const CircleAvatar(
               radius: 34,
               backgroundColor: Color(0xffE8F5E9),
-              child: Icon(
-                Icons.agriculture,
-                color: Colors.green,
-                size: 38,
-              ),
+              child: Icon(Icons.agriculture, color: Colors.green, size: 38),
             ),
 
             const SizedBox(height: 12),
 
             const Text(
               "Crop Survey",
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
 
             const Text(
               "Management System",
-              style: TextStyle(
-                color: Colors.grey,
-              ),
+              style: TextStyle(color: Colors.grey),
             ),
 
             const SizedBox(height: 30),
 
             Expanded(
               child: ListView(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 12),
                 children: [
-
                   _menuTile(
                     icon: Icons.dashboard_rounded,
                     title: "Dashboard",
                     menu: AppMenu.dashboard,
+                  ),
+
+                  _menuTile(
+                    icon: Icons.list_alt,
+                    title: "All Applications",
+                    menu: AppMenu.allApplications,
                   ),
 
                   _menuTile(
@@ -126,9 +120,7 @@ class AppSidebar extends StatelessWidget {
               padding: EdgeInsets.all(12),
               child: Text(
                 "Version 1.0.0",
-                style: TextStyle(
-                  color: Colors.grey,
-                ),
+                style: TextStyle(color: Colors.grey),
               ),
             ),
           ],
@@ -145,33 +137,18 @@ class AppSidebar extends StatelessWidget {
     final bool active = selected == menu;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: 4,
-      ),
+      padding: const EdgeInsets.symmetric(vertical: 4),
       child: Material(
-        color: active
-            ? const Color(0xffE8F5E9)
-            : Colors.transparent,
-        borderRadius:
-            BorderRadius.circular(12),
+        color: active ? const Color(0xffE8F5E9) : Colors.transparent,
+        borderRadius: BorderRadius.circular(12),
         child: InkWell(
-          borderRadius:
-              BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(12),
           onTap: () => onSelected(menu),
           child: Container(
-            padding:
-                const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 14,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
             child: Row(
               children: [
-                Icon(
-                  icon,
-                  color: active
-                      ? Colors.green
-                      : Colors.grey.shade700,
-                ),
+                Icon(icon, color: active ? Colors.green : Colors.grey.shade700),
 
                 const SizedBox(width: 16),
 
@@ -180,12 +157,8 @@ class AppSidebar extends StatelessWidget {
                     title,
                     style: TextStyle(
                       fontSize: 15,
-                      fontWeight: active
-                          ? FontWeight.bold
-                          : FontWeight.w500,
-                      color: active
-                          ? Colors.green
-                          : Colors.black87,
+                      fontWeight: active ? FontWeight.bold : FontWeight.w500,
+                      color: active ? Colors.green : Colors.black87,
                     ),
                   ),
                 ),

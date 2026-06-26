@@ -40,7 +40,7 @@ Widget build(BuildContext context) {
                     CircleAvatar(
                       radius: 18,
                       backgroundColor:
-                          color.withOpacity(.15),
+                          color..withValues(alpha: 0.15),
                       child: Icon(
                         icon,
                         color: color,

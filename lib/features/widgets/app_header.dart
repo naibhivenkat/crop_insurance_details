@@ -15,38 +15,27 @@ class AppHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final now = DateFormat(
-      "dd MMM yyyy, EEEE",
-    ).format(DateTime.now());
+    final now = DateFormat("dd MMM yyyy, EEEE").format(DateTime.now());
 
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 30,
-        vertical: 20,
-      ),
+    return Material(
+  color: Colors.white,
+  child: Container(
+      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
       decoration: const BoxDecoration(
         color: Colors.white,
-        border: Border(
-          bottom: BorderSide(
-            color: Color(0xffE5E7EB),
-          ),
-        ),
+        border: Border(bottom: BorderSide(color: Color(0xffE5E7EB))),
       ),
       child: Row(
         children: [
-
           Expanded(
             child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
                 Text(
                   title,
                   style: const TextStyle(
                     fontSize: 30,
-                    fontWeight:
-                        FontWeight.bold,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
 
@@ -54,11 +43,7 @@ class AppHeader extends StatelessWidget {
 
                 Text(
                   subtitle ?? now,
-                  style: TextStyle(
-                    color:
-                        Colors.grey.shade700,
-                    fontSize: 15,
-                  ),
+                  style: TextStyle(color: Colors.grey.shade700, fontSize: 15),
                 ),
               ],
             ),
@@ -69,22 +54,13 @@ class AppHeader extends StatelessWidget {
             height: 45,
             child: TextField(
               decoration: InputDecoration(
-                hintText:
-                    "Search application...",
-                prefixIcon: const Icon(
-                  Icons.search,
-                ),
+                hintText: "Search application...",
+                prefixIcon: const Icon(Icons.search),
                 filled: true,
-                fillColor:
-                    Colors.grey.shade100,
-                border:
-                    OutlineInputBorder(
-                  borderRadius:
-                      BorderRadius.circular(
-                    12,
-                  ),
-                  borderSide:
-                      BorderSide.none,
+                fillColor: Colors.grey.shade100,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide.none,
                 ),
               ),
             ),
@@ -92,54 +68,31 @@ class AppHeader extends StatelessWidget {
 
           const SizedBox(width: 20),
 
-          if (actions != null)
-            ...actions!,
+          if (actions != null) ...actions!,
 
           const SizedBox(width: 20),
 
           Container(
-            padding:
-                const EdgeInsets.symmetric(
-              horizontal: 12,
-              vertical: 8,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
               color: Colors.grey.shade100,
-              borderRadius:
-                  BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(12),
             ),
             child: const Row(
               children: [
-
-                CircleAvatar(
-                  radius: 18,
-                  child: Icon(
-                    Icons.person,
-                    size: 20,
-                  ),
-                ),
+                CircleAvatar(radius: 18, child: Icon(Icons.person, size: 20)),
 
                 SizedBox(width: 10),
 
                 Column(
-                  crossAxisAlignment:
-                      CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
                     Text(
                       "Administrator",
-                      style: TextStyle(
-                        fontWeight:
-                            FontWeight.bold,
-                      ),
+                      style: TextStyle(fontWeight: FontWeight.bold),
                     ),
 
-                    Text(
-                      "Logged In",
-                      style: TextStyle(
-                        fontSize: 12,
-                      ),
-                    ),
+                    Text("Logged In", style: TextStyle(fontSize: 12)),
                   ],
                 ),
               ],
@@ -147,6 +100,6 @@ class AppHeader extends StatelessWidget {
           ),
         ],
       ),
-    );
+    ));
   }
 }

@@ -1,3 +1,4 @@
+import 'package:crop_survey/screens/applications/screens/all_applications_screen.dart';
 import 'package:crop_survey/screens/applications/screens/crop_rates_screen.dart';
 import 'package:crop_survey/screens/applications/screens/export_screen.dart';
 import 'package:crop_survey/screens/applications/screens/reports_screen.dart';
@@ -41,7 +42,7 @@ class AppRouter {
       case "/status":
         return MaterialPageRoute(
           builder: (_) =>
-              const UpdateStatusScreen(),
+              const AllApplicationsScreen(),
         );
 
       case "/reports":

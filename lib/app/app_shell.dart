@@ -1,4 +1,5 @@
 import 'package:crop_survey/features/widgets/app_sidebar.dart';
+import 'package:crop_survey/screens/applications/screens/all_applications_screen.dart';
 
 import 'package:crop_survey/screens/applications/screens/crop_rates_screen.dart';
 import 'package:crop_survey/screens/applications/screens/export_screen.dart';
@@ -28,6 +29,9 @@ class _AppShellState extends State<AppShell> {
       case AppMenu.dashboard:
         return const DashboardScreen();
 
+        case AppMenu.allApplications:
+  return const AllApplicationsScreen();
+
       case AppMenu.newApplication:
         return const SurveyFormScreen();
 
@@ -35,7 +39,7 @@ class _AppShellState extends State<AppShell> {
         return const SearchScreen();
 
       case AppMenu.updateStatus:
-        return const UpdateStatusScreen();
+        return const AllApplicationsScreen();
 
       case AppMenu.cropRates:
         return const CropRatesScreen();

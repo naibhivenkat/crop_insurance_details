@@ -5,8 +5,6 @@ import 'package:crop_survey/screens/applications/widgets/summary_card.dart';
 import 'package:crop_survey/screens/applications/widgets/survey_details_table.dart';
 import 'package:flutter/material.dart';
 
-
-
 class NewApplicationScreen extends StatelessWidget {
   const NewApplicationScreen({super.key});
 
@@ -14,7 +12,6 @@ class NewApplicationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-
         const AppHeader(
           title: "New Application",
           subtitle: "Create a new crop insurance application",
@@ -24,10 +21,8 @@ class NewApplicationScreen extends StatelessWidget {
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(24),
             child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
                 const FarmerInfoCard(),
 
                 const SizedBox(height: 24),

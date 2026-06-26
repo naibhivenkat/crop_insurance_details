@@ -73,7 +73,7 @@ class _ExportScreenState extends State<ExportScreen> {
             CircleAvatar(
               radius: 34,
 
-              backgroundColor: color.withOpacity(.15),
+              backgroundColor: color..withValues(alpha: 0.15),
 
               child: Icon(icon, size: 34, color: color),
             ),
