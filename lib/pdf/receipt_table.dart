@@ -23,8 +23,8 @@ class ReceiptTable extends pw.StatelessWidget {
         pw.TableRow(
           children: [
             _cell("Survey No", bold: true),
-            _cell("Survey Details", bold: true),
-            _cell("Crop", bold: true),
+            _cell("Land Details", bold: true),
+            _cell("Crops", bold: true),
             _cell("Amount", bold: true),
           ],
         ),
