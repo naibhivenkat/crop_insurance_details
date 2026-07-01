@@ -20,6 +20,7 @@ class FarmerModel {
   final String ackNo;
 
   final String remarks;
+  final String paymentMethod;
 
   FarmerModel({
     required this.id,
@@ -27,11 +28,14 @@ class FarmerModel {
     required this.name,
     required this.address,
     required this.mobile,
+    
     required this.date,
     required this.totalAmount,
     this.status = "Pending",
     this.ackNo = "",
-    this.remarks = "",
+    this.remarks = "", 
+     required this.paymentMethod,
+
   });
 
   Map<String, dynamic> toMap() {
@@ -69,6 +73,7 @@ class FarmerModel {
       ackNo: map["ackNo"] ?? "",
 
       remarks: map["remarks"] ?? "",
+      paymentMethod: map["paymentMethod"] ?? ""
     );
   }
 

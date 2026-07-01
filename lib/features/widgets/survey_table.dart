@@ -1,139 +1,3 @@
-// import 'package:crop_survey/models/survey_row_controller.dart';
-// import 'package:flutter/material.dart';
-
-
-// import 'survey_row_widget.dart';
-
-// class SurveyTable extends StatelessWidget {
-//   final List<SurveyRowController> surveyRows;
-
-//   final List<String> crops;
-
-//   final VoidCallback onAddSurvey;
-
-//   final void Function(int index) onDeleteSurvey;
-
-//   final void Function(int index) onCalculate;
-
-//   const SurveyTable({
-//     super.key,
-//     required this.surveyRows,
-//     required this.crops,
-//     required this.onAddSurvey,
-//     required this.onDeleteSurvey,
-//     required this.onCalculate,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Card(
-//       elevation: 1,
-//       clipBehavior: Clip.antiAlias,
-//       child: Padding(
-//         padding: const EdgeInsets.all(24),
-//         child: Column(
-//           crossAxisAlignment:
-//               CrossAxisAlignment.start,
-//           children: [
-
-//             Row(
-//               children: [
-
-//                 Text(
-//                   "Survey Details",
-//                   style: Theme.of(context)
-//                       .textTheme
-//                       .titleLarge,
-//                 ),
-
-//                 const Spacer(),
-
-//                 ElevatedButton.icon(
-//                   onPressed: onAddSurvey,
-//                   icon: const Icon(Icons.add),
-//                   label: const Text(
-//                     "Add Survey",
-//                   ),
-//                 ),
-//               ],
-//             ),
-
-//             const SizedBox(height: 24),
-
-//             if (surveyRows.isEmpty)
-
-//               const Padding(
-//                 padding: EdgeInsets.all(24),
-//                 child: Center(
-//                   child: Text(
-//                     "No Survey Added",
-//                   ),
-//                 ),
-//               )
-
-//             else
-
-//               ...List.generate(
-//                 surveyRows.length,
-//                 (index) {
-
-//                   final row =
-//                       surveyRows[index];
-
-//                   return SurveyRowWidget(
-//                     index: index,
-
-//                     surveyNoController:
-//                         row.surveyNoController,
-
-//                     acreController:
-//                         row.acreController,
-
-//                     gunteController:
-//                         row.gunteController,
-
-//                     subGunteController:
-//                         row.subGunteController,
-
-//                     crop: row.crop,
-
-//                     crops: crops,
-
-//                     amount: row.amount,
-
-//                     onCropChanged:
-//                         (value) {
-
-//                       row.crop =
-//                           value!;
-
-//                       onCalculate(
-//                         index,
-//                       );
-//                     },
-
-//                     onDelete: () {
-//                       onDeleteSurvey(
-//                         index,
-//                       );
-//                     },
-
-//                     onValueChanged: () {
-//                       onCalculate(
-//                         index,
-//                       );
-//                     },
-//                   );
-//                 },
-//               ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-
 import 'package:flutter/material.dart';
 import 'package:crop_survey/models/survey_row_controller.dart';
 import 'survey_row_widget.dart';
@@ -146,6 +10,11 @@ class SurveyTable extends StatelessWidget {
   final void Function(int index) onDeleteSurvey;
   final void Function(int index) onCalculate;
 
+  static const double surveyCharge = 200;
+
+ final String selectedPaymentMethod;
+  
+
   const SurveyTable({
     super.key,
     required this.surveyRows,
@@ -153,46 +22,44 @@ class SurveyTable extends StatelessWidget {
     required this.onAddSurvey,
     required this.onDeleteSurvey,
     required this.onCalculate,
+    required this.selectedPaymentMethod,
   });
 
+
+//String selectedPaymentMethod = "Cash";
   double get totalAmount {
     double total = 0;
 
     for (final row in surveyRows) {
-      total += row.amount;
+      total += row.amount + surveyCharge;
     }
 
     return total;
   }
+  
+//String selectedPaymentMethod = "Cash";
 
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 2,
       shadowColor: Colors.black12,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(18),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
       child: Padding(
         padding: const EdgeInsets.all(24),
         child: Column(
-          crossAxisAlignment:
-              CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             //----------------------------------------------------
             // Header
             //----------------------------------------------------
-
             Row(
               children: [
-
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
                     color: Colors.green.shade50,
-                    borderRadius:
-                        BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(12),
                   ),
                   child: const Icon(
                     Icons.agriculture,
@@ -200,225 +67,164 @@ class SurveyTable extends StatelessWidget {
                     size: 28,
                   ),
                 ),
-
                 const SizedBox(width: 16),
-
-                const Column(
-                  crossAxisAlignment:
-                      CrossAxisAlignment.start,
-                  children: [
-
-                    Text(
-                      "Survey Details",
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight:
-                            FontWeight.bold,
+                const Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Survey Details",
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-
-                    SizedBox(height: 4),
-
-                    Text(
-                      "Manage survey information for this application",
-                      style: TextStyle(
-                        color: Colors.grey,
+                      SizedBox(height: 4),
+                      Text(
+                        "Manage survey information for this application",
+                        style: TextStyle(color: Colors.grey),
                       ),
-                    ),
-                  ],
-                ),
-
-                const Spacer(),
-
-                FilledButton.icon(
-                  onPressed: onAddSurvey,
-                  icon: const Icon(Icons.add),
-                  label: const Text(
-                    "Add Survey",
+                    ],
                   ),
                 ),
               ],
             ),
 
-            const SizedBox(height: 24),
+            const SizedBox(height: 20),
 
             //----------------------------------------------------
             // Summary Chips
             //----------------------------------------------------
-
             Wrap(
               spacing: 12,
               runSpacing: 12,
               children: [
-
                 Chip(
-                  avatar: const Icon(
-                    Icons.list_alt,
-                    size: 18,
-                  ),
-                  label: Text(
-                    "${surveyRows.length} Survey(s)",
-                  ),
+                  avatar: const Icon(Icons.list_alt, size: 18),
+                  label: Text("${surveyRows.length} Survey(s)"),
                 ),
-
                 Chip(
-                  avatar: const Icon(
-                    Icons.currency_rupee,
-                    size: 18,
-                  ),
-                  label: Text(
-                    "₹ ${totalAmount.toStringAsFixed(2)}",
-                  ),
+                  avatar: const Icon(Icons.currency_rupee, size: 18),
+                  label: Text("₹ ${totalAmount.toStringAsFixed(2)}"),
                 ),
-
                 Chip(
-                  avatar: const Icon(
-                    Icons.check_circle,
-                    size: 18,
-                  ),
-                  backgroundColor:
-                      Colors.green.shade50,
-                  label: const Text(
-                    "Ready",
-                  ),
+                  avatar: const Icon(Icons.check_circle, size: 18),
+                  backgroundColor: Colors.green.shade50,
+                  label: const Text("Ready"),
                 ),
               ],
             ),
 
-            const SizedBox(height: 25),
-
-            const Divider(),
-
-            const SizedBox(height: 15),
+            const SizedBox(height: 20),
 
             //----------------------------------------------------
             // Empty State
             //----------------------------------------------------
-
             if (surveyRows.isEmpty)
               Container(
                 width: double.infinity,
-                padding:
-                    const EdgeInsets.symmetric(
-                  vertical: 70,
-                ),
+                padding: const EdgeInsets.symmetric(vertical: 64),
                 child: Column(
                   children: [
-
                     Icon(
                       Icons.agriculture,
-                      size: 70,
+                      size: 72,
                       color: Colors.grey.shade400,
                     ),
-
                     const SizedBox(height: 20),
-
                     const Text(
                       "No Survey Added",
                       style: TextStyle(
                         fontSize: 22,
-                        fontWeight:
-                            FontWeight.bold,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-
-                    const SizedBox(height: 8),
-
+                    const SizedBox(height: 10),
                     Text(
                       "Click 'Add Survey' to start entering survey details.",
-                      textAlign:
-                          TextAlign.center,
-                      style: TextStyle(
-                        color:
-                            Colors.grey.shade600,
-                      ),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.grey.shade600),
                     ),
-
                     const SizedBox(height: 30),
-
-                    FilledButton.icon(
-                      onPressed: onAddSurvey,
-                      icon: const Icon(Icons.add),
-                      label: const Text(
-                        "Add First Survey",
+                    SizedBox(
+                      width: 240,
+                      height: 52,
+                      child: FilledButton.icon(
+                        onPressed: onAddSurvey,
+                        icon: const Icon(Icons.add),
+                        label: const Text("Add First Survey"),
                       ),
                     ),
                   ],
                 ),
               )
-
             //----------------------------------------------------
             // Survey Rows
             //----------------------------------------------------
-
             else
               Column(
-                children: [                  ...List.generate(
-                    surveyRows.length,
-                    (index) {
-                      final row = surveyRows[index];
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ...List.generate(surveyRows.length, (index) {
+                    final row = surveyRows[index];
 
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 18),
-                        child: SurveyRowWidget(
-                          index: index,
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 16),
+                      child: SurveyRowWidget(
+                        index: index,
+                        surveyNoController: row.surveyNoController,
+                        acreController: row.acreController,
+                        gunteController: row.gunteController,
+                        subGunteController: row.subGunteController,
+                        crop: row.crop,
+                        crops: crops,
+                        amount: row.amount + surveyCharge,
+                        onCropChanged: (value) {
+                          row.crop = value!;
+                          onCalculate(index);
+                        },
+                        onDelete: () {
+                          onDeleteSurvey(index);
+                        },
+                        onValueChanged: () {
+                          onCalculate(index);
+                        },
+                      ),
+                    );
+                  }),
 
-                          surveyNoController:
-                              row.surveyNoController,
+                  const SizedBox(height: 4),
 
-                          acreController:
-                              row.acreController,
-
-                          gunteController:
-                              row.gunteController,
-
-                          subGunteController:
-                              row.subGunteController,
-
-                          crop: row.crop,
-
-                          crops: crops,
-
-                          amount: row.amount,
-
-                          onCropChanged: (value) {
-                            row.crop = value!;
-
-                            onCalculate(index);
-                          },
-
-                          onDelete: () {
-                            onDeleteSurvey(index);
-                          },
-
-                          onValueChanged: () {
-                            onCalculate(index);
-                          },
-                        ),
-                      );
-                    },
+                  SizedBox(
+                    width: double.infinity,
+                    height: 52,
+                    child: FilledButton.icon(
+                      onPressed: onAddSurvey,
+                      icon: const Icon(Icons.add),
+                      label: const Text(
+                        "Add Another Survey",
+                        style: TextStyle(fontWeight: FontWeight.w600),
+                      ),
+                    ),
                   ),
 
-                  const SizedBox(height: 10),
-
-                  const Divider(height: 35),
+                  const SizedBox(height: 20),
 
                   //--------------------------------------------------
                   // Footer Summary
                   //--------------------------------------------------
-
                   Container(
+                    width: double.infinity,
                     padding: const EdgeInsets.symmetric(
                       horizontal: 20,
                       vertical: 18,
                     ),
                     decoration: BoxDecoration(
                       color: Colors.green.shade50,
-                      borderRadius: BorderRadius.circular(14),
+                      borderRadius: BorderRadius.circular(16),
                     ),
                     child: Row(
                       children: [
-
                         CircleAvatar(
                           radius: 22,
                           backgroundColor: Colors.white,
@@ -428,21 +234,17 @@ class SurveyTable extends StatelessWidget {
                           ),
                         ),
 
-                        const SizedBox(width: 15),
+                        const SizedBox(width: 16),
 
                         Column(
-                          crossAxisAlignment:
-                              CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-
                             Text(
                               "Survey Summary",
                               style: TextStyle(
                                 fontSize: 16,
-                                fontWeight:
-                                    FontWeight.bold,
-                                color:
-                                    Colors.green.shade800,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.green.shade800,
                               ),
                             ),
 
@@ -450,27 +252,18 @@ class SurveyTable extends StatelessWidget {
 
                             Text(
                               "${surveyRows.length} Survey(s) Added",
-                              style: TextStyle(
-                                color:
-                                    Colors.grey.shade700,
-                              ),
+                              style: TextStyle(color: Colors.grey.shade700),
                             ),
                           ],
                         ),
 
                         const Spacer(),
-
                         Column(
-                          crossAxisAlignment:
-                              CrossAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-
                             Text(
                               "Grand Total",
-                              style: TextStyle(
-                                color:
-                                    Colors.grey.shade700,
-                              ),
+                              style: TextStyle(color: Colors.grey.shade700),
                             ),
 
                             const SizedBox(height: 4),
@@ -479,26 +272,34 @@ class SurveyTable extends StatelessWidget {
                               "₹ ${totalAmount.toStringAsFixed(2)}",
                               style: const TextStyle(
                                 fontSize: 26,
-                                fontWeight:
-                                    FontWeight.bold,
+                                fontWeight: FontWeight.bold,
                                 color: Colors.green,
                               ),
                             ),
+                            const SizedBox(height: 14),
+
+                Text(
+  "Payment Method : $selectedPaymentMethod",
+  style: const TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+  ),
+),
                           ],
                         ),
                       ],
                     ),
                   ),
 
-                  const SizedBox(height: 18),
+                  const SizedBox(height: 16),
 
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-
                       Icon(
                         Icons.info_outline,
-                        color: Colors.blue.shade700,
                         size: 18,
+                        color: Colors.blue.shade700,
                       ),
 
                       const SizedBox(width: 8),
@@ -506,10 +307,7 @@ class SurveyTable extends StatelessWidget {
                       Expanded(
                         child: Text(
                           "Amount is calculated automatically using the selected crop rate and total area.",
-                          style: TextStyle(
-                            color:
-                                Colors.grey.shade700,
-                          ),
+                          style: TextStyle(color: Colors.grey.shade700),
                         ),
                       ),
                     ],

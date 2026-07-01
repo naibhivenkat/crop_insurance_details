@@ -39,6 +39,9 @@ class _SurveyFormScreenState extends State<SurveyFormScreen> {
 
   final List<String> crops = [];
   Map<String, double> cropRates = {};
+
+  String selectedPaymentMethod = "Cash";
+
   @override
   void initState() {
     super.initState();
@@ -197,6 +200,7 @@ class _SurveyFormScreenState extends State<SurveyFormScreen> {
         status: "Pending",
         ackNo: "",
         remarks: "",
+        paymentMethod: selectedPaymentMethod,
       );
 
       final List<SurveyDetailModel> details = [];
@@ -265,34 +269,55 @@ class _SurveyFormScreenState extends State<SurveyFormScreen> {
           children: [
             FarmerInformationCard(
               nameController: nameController,
-
               addressController: addressController,
-
               mobileController: mobileController,
-
               selectedDate: selectedDate,
-
               onSelectDate: pickDate,
+            ),
+
+            const SizedBox(height: 20),
+
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: DropdownButtonFormField<String>(
+                  value: selectedPaymentMethod,
+                  decoration: const InputDecoration(
+                    labelText: "Payment Method",
+                    border: OutlineInputBorder(),
+                    prefixIcon: Icon(Icons.payments),
+                  ),
+                  items: const [
+                    DropdownMenuItem(value: "Cash", child: Text("Cash")),
+                    DropdownMenuItem(value: "UPI", child: Text("UPI")),
+                    DropdownMenuItem(value: "Cheque", child: Text("Cheque")),
+                  ],
+                  onChanged: (value) {
+                    if (value == null) return;
+                    setState(() {
+                      selectedPaymentMethod = value;
+                    });
+                  },
+                ),
+              ),
             ),
 
             const SizedBox(height: 20),
 
             SurveyTable(
               surveyRows: surveyRows,
-
               crops: crops,
-
               onAddSurvey: addSurvey,
-
               onDeleteSurvey: removeSurvey,
-
               onCalculate: calculateRow,
+              selectedPaymentMethod: selectedPaymentMethod,
             ),
 
             const SizedBox(height: 20),
 
             TotalAmountCard(
-              totalAmount: totalAmount,
+              totalAmount:
+                  totalAmount + SurveyTable.surveyCharge * surveyRows.length,
 
               surveyCount: surveyRows.length,
             ),

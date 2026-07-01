@@ -1,11 +1,8 @@
+// receipt_builder.dart
 import 'dart:typed_data';
-
-import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-
 import 'package:printing/printing.dart';
 
 import '../models/farmer_model.dart';
@@ -23,96 +20,33 @@ class ReceiptBuilder {
   }) async {
     final pdf = pw.Document();
 
-    //--------------------------------------------------------
-    // Fonts
-    //--------------------------------------------------------
-
-    final regular =
-        await PdfGoogleFonts.nunitoRegular();
-
-    final bold =
-        await PdfGoogleFonts.nunitoBold();
-
-    //--------------------------------------------------------
-    // Optional Logo
-    //--------------------------------------------------------
-
-    pw.MemoryImage? logo;
-
-    try {
-      final bytes = await rootBundle.load(
-        "assets/images/logo.png",
-      );
-
-      logo = pw.MemoryImage(
-        bytes.buffer.asUint8List(),
-      );
-    } catch (_) {}
-
-    //--------------------------------------------------------
-    // Theme
-    //--------------------------------------------------------
+    final regular = await PdfGoogleFonts.nunitoRegular();
+    final bold = await PdfGoogleFonts.nunitoBold();
 
     final theme = pw.ThemeData.withFont(
       base: regular,
       bold: bold,
     );
 
-    //--------------------------------------------------------
-    // Build PDF
-    //--------------------------------------------------------
-
     pdf.addPage(
-      pw.MultiPage(
+      pw.Page(
         pageTheme: pw.PageTheme(
-          pageFormat: PdfPageFormat.a4,
+          pageFormat: PdfPageFormat.a5,
           theme: theme,
-          margin: const pw.EdgeInsets.all(30),
+          margin: const pw.EdgeInsets.all(10),
         ),
-
-        build: (context) => [
-
-          //----------------------------------------------------
-          // Header
-          //----------------------------------------------------
-
-          ReceiptHeader(
-            logo: logo,
-            farmer: farmer,
-          ),
-
-          pw.SizedBox(height: 20),
-
-          //----------------------------------------------------
-          // Farmer
-          //----------------------------------------------------
-
-          ReceiptFarmer(
-            farmer: farmer,
-            surveys: surveys,
-          ),
-
-          pw.SizedBox(height: 25),
-
-          //----------------------------------------------------
-          // Survey Table
-          //----------------------------------------------------
-
-          ReceiptTable(
-            farmer: farmer,
-            surveys: surveys,
-          ),
-
-          pw.SizedBox(height: 30),
-
-          //----------------------------------------------------
-          // Footer
-          //----------------------------------------------------
-
-          ReceiptFooter(
-            farmer: farmer,
-          ),
-        ],
+        build: (context) => pw.Column(
+          crossAxisAlignment: pw.CrossAxisAlignment.start,
+          children: [
+            ReceiptHeader(farmer: farmer),
+            pw.SizedBox(height: 10),
+            ReceiptFarmer(farmer: farmer),
+            pw.SizedBox(height: 10),
+            ReceiptTable(surveys: surveys),
+            pw.SizedBox(height: 10),
+            ReceiptFooter(farmer: farmer),
+          ],
+        ),
       ),
     );
 
