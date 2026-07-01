@@ -21,7 +21,11 @@ class ReceiptFarmer extends pw.StatelessWidget {
           style: PdfThemeHelper.normal(),
         ),
         pw.Text(
-          "Application No: ${farmer.id}",
+          "Application No: ${farmer.mobile}",
+          style: PdfThemeHelper.normal(),
+        ),
+        pw.Text(
+          "Former Id: ${farmer.id}",
           style: PdfThemeHelper.normal(),
         ),
       ],

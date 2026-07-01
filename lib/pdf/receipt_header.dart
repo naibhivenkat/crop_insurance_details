@@ -24,10 +24,10 @@ class ReceiptHeader extends pw.StatelessWidget {
           ),
         ),
         pw.SizedBox(height: 10),
-        pw.Text(
-          "Receipt No: ${farmer.ackNo}",
-          style: PdfThemeHelper.normal(),
-        ),
+        // pw.Text(
+        //   "Receipt No: ${farmer.mobile}",
+        //   style: PdfThemeHelper.normal(),
+        // ),
          pw.Text(
           "Payment Method: ${farmer.paymentMethod}",
           style: PdfThemeHelper.normal(),
